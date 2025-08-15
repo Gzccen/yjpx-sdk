@@ -29,8 +29,7 @@ class TokenService{
         $hash = generateSM3($str);
         $sign = strtoupper(generateSM3($hash.$this->baseConfig->secretKey));
 
-
-        $tokenResponse = $httpClient->get('/pxjgDi/v2/getToken', [
+        $tokenResponse = $httpClient->post('/pxjgDi/v2/getToken', [
             'timestamp' => $nowTime,
             'sign' => $sign,
             'project-code' => $this->baseConfig->projectCode,

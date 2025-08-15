@@ -12,15 +12,12 @@ namespace Gzcots\Yjpx\Config;
  * @property string $secretKey privateKey密钥
  */
 class BaseConfig{
-
-
     protected string $partnerId;
     protected string $projectCode;
+    protected string $secretKey;
     protected string $baseUri = 'https://yss-gd.i-aq.cn';
     protected int $timeout = 30;
     protected string $ssoTokenKey = 'ssoToken';
-    protected string $secretKey;
-
     public function __construct($partnerId, $projectCode, $secretKey){
         $this->partnerId = $partnerId;
         $this->projectCode = $projectCode;
