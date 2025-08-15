@@ -3,7 +3,6 @@
 namespace Gzcots\Yjpx\Service;
 
 use Gzcots\Yjpx\Config\BaseConfig;
-use Gzcots\Yjpx\Request\TokenRequest;
 use Psr\SimpleCache\CacheInterface;
 
 use function Gzcots\Yjpx\generateSM3;

@@ -3,7 +3,6 @@
 namespace Gzcots\Yjpx\Service;
 
 use GuzzleHttp\Client;
-use GuzzleHttp\Psr7\HttpFactory;
 use Gzcots\Yjpx\Config\BaseConfig;
 
 class HttpClient {
