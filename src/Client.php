@@ -2,16 +2,21 @@
 
 namespace Gzcots\Yjpx;
 
-use Gzcots\Yjpx\Request\TokenRequest;
+use Psr\SimpleCache\CacheInterface;
 
 class Client{
-
-    private string $projectCode;
+    
     private string $partnerId;
+    private string $projectCode;
 
-    public function __construct($projectCode, $partnerId) {
-        $this->projectCode = $projectCode;
-        $this->partnerId = $partnerId;
+    private CacheInterface $cache;
+
+    public function __construct($config) {
+        $this->partnerId = $config['partnerId'];
+        $this->projectCode = $config['projectCode'];
+        $this->cache = $config['cache'];
     }
+
+
 
 }
