@@ -1,0 +1,30 @@
+{
+    "name": "gzcots/yjpx",
+    "description": "yjpx",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Gzcots\\Yjpx\\": "src/"
+        },
+        "files": [
+            "src/Common.php"
+        ]
+    },
+    "authors": [
+        {
+            "name": "gzcots"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=7.4",
+        "guzzlehttp/guzzle": "^7.0"
+    },
+    "repositories": {
+        "packagist": {
+            "type": "composer",
+            "url": "https://mirrors.aliyun.com/composer/"
+        }
+    }
+}
