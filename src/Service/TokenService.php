@@ -11,25 +11,31 @@ use function Gzcots\Yjpx\generateSM3;
 class TokenService{
 
     private CacheInterface $cache;
+    private BaseConfig $baseConfig;
 
-    public function getToken(BaseConfig $baseConfig){
-        $token = $this->cache->get($baseConfig->ssoTokenKey);
+    public function __construct(CacheInterface $cache, BaseConfig $baseConfig){
+        $this->cache = $cache;
+        $this->baseConfig = $baseConfig;
+    }
+
+    public function getToken(){
+        $token = $this->cache->get($this->baseConfig->ssoTokenKey);
         if($token){
             return $token;
         }
-        
-        $httpClient = new HttpClient($baseConfig);
+
+        $httpClient = new HttpClient($this->baseConfig);
         $nowTime = time()*1000;
-        $str = $baseConfig->partnerId.$baseConfig->projectCode.$baseConfig->secretKey.$nowTime;
+        $str = $this->baseConfig->partnerId.$this->baseConfig->projectCode.$this->baseConfig->secretKey.$nowTime;
         $hash = generateSM3($str);
-        $sign = strtoupper(generateSM3($hash.$baseConfig->secretKey));
+        $sign = strtoupper(generateSM3($hash.$this->baseConfig->secretKey));
 
 
         $tokenResponse = $httpClient->get('/pxjgDi/v2/getToken', [
             'timestamp' => $nowTime,
             'sign' => $sign,
-            'project-code' => $baseConfig->projectCode,
-            'partner-id' => $baseConfig->partnerId,
+            'project-code' => $this->baseConfig->projectCode,
+            'partner-id' => $this->baseConfig->partnerId,
         ]);
 
         if(!isset($tokenResponse['success']) || !$tokenResponse['success']) {
@@ -39,7 +45,7 @@ class TokenService{
         $token = $tokenResponse['data']['accessToken'];
         $timeOut = $tokenResponse['data']['expiresIn'];
 
-        $this->cache->set($baseConfig->ssoTokenKey, $token, $timeOut);
+        $this->cache->set($this->baseConfig->ssoTokenKey, $token, $timeOut);
         return $token;
     }
 

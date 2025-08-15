@@ -4,6 +4,7 @@ namespace Gzcots\Yjpx;
 
 use Gzcots\Yjpx\Config\BaseConfig;
 use Gzcots\Yjpx\Request\BaseRequest;
+use Gzcots\Yjpx\Service\TokenService;
 use Psr\SimpleCache\CacheInterface;
 
 class Client{
@@ -17,8 +18,8 @@ class Client{
     }
 
     public function getToken(){
-
-        
+        $tokenService = new TokenService($this->cache, $this->baseConfig);
+        return $tokenService->getToken();
     }
 
 
