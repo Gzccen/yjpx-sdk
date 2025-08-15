@@ -38,7 +38,7 @@ class BaseConfig{
         return [
             'project-code' => $this->projectCode,
             'partner-id' => $this->partnerId,
-            'token' => $this->tokenService->getToken(),
+            'sso-token' => $this->tokenService->getToken(),
         ];
     }
 }
