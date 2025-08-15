@@ -18,6 +18,9 @@ class TokenService{
         $this->baseConfig = $baseConfig;
     }
 
+    /**
+     * 调用《授权->获取token-V2》接口获取token
+     */
     public function getToken(){
         $token = $this->cache->get($this->baseConfig->ssoTokenKey);
         if($token){

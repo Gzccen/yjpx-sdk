@@ -17,7 +17,7 @@ class BaseConfig{
     protected string $secretKey;
     protected string $baseUri = 'https://yss-gd.i-aq.cn';
     protected int $timeout = 30;
-    protected string $ssoTokenKey = 'ssoToken';
+    protected string $ssoTokenKey = 'yjpx:ssoToken';
     public function __construct($partnerId, $projectCode, $secretKey){
         $this->partnerId = $partnerId;
         $this->projectCode = $projectCode;

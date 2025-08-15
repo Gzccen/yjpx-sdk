@@ -16,6 +16,9 @@ class Client{
         $this->cache = $config['cache'];
     }
 
+    /**
+     * 获取接口调用header的ssotoken
+     */
     public function getToken(){
         $tokenService = new TokenService($this->cache, $this->baseConfig);
         return $tokenService->getToken();

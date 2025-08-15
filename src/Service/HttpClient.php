@@ -15,6 +15,9 @@ class HttpClient {
         ]);
     }
 
+    /**
+     * 发送GET请求
+     */
     public function get($url, $headers = [], $query = []){
         $response = $this->httpClient->get($url, [
             'headers' => $headers,
@@ -23,7 +26,9 @@ class HttpClient {
         return $response->getBody()->getContents();
     }
 
-
+    /**
+     * 发送POST请求
+     */
     public function post($url, $headers = [], $params = []){
         $response = $this->httpClient->post($url, [
             'headers' => $headers,
@@ -32,6 +37,9 @@ class HttpClient {
         return $response->getBody()->getContents();
     }
 
+    /**
+     * 创建HTTP客户端
+     */
     public function getClient($baseUri = null, $timeout = 30){
         if($baseUri){
             return new Client([
