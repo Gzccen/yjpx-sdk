@@ -2,6 +2,8 @@
 
 namespace Gzcots\Yjpx\Config;
 
+use Gzcots\Yjpx\Service\TokenService;
+
 /**
  * 基础配置
  * @property string $partnerId partnerId
@@ -10,6 +12,7 @@ namespace Gzcots\Yjpx\Config;
  * @property int $timeout 超时时间
  * @property string $ssoTokenKey SSO令牌缓存键
  * @property string $secretKey privateKey密钥
+ * @property TokenService $tokenService tokenService
  */
 class BaseConfig{
     protected string $partnerId;
@@ -18,6 +21,7 @@ class BaseConfig{
     protected string $baseUri = 'https://yss-gd.i-aq.cn';
     protected int $timeout = 30;
     protected string $ssoTokenKey = 'yjpx:ssoToken';
+    protected TokenService $tokenService;
     public function __construct($partnerId, $projectCode, $secretKey){
         $this->partnerId = $partnerId;
         $this->projectCode = $projectCode;
@@ -28,5 +32,13 @@ class BaseConfig{
     }
     public function __set($name, $value){
         $this->$name = $value;
+    }
+
+    public function getHeaders(){
+        return [
+            'project-code' => $this->projectCode,
+            'partner-id' => $this->partnerId,
+            'token' => $this->tokenService->getToken(),
+        ];
     }
 }
