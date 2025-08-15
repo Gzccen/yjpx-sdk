@@ -3,7 +3,6 @@
 namespace Gzcots\Yjpx;
 
 use Gzcots\Yjpx\Config\BaseConfig;
-use Gzcots\Yjpx\Request\BaseRequest;
 use Gzcots\Yjpx\Service\TokenService;
 use Psr\SimpleCache\CacheInterface;
 
