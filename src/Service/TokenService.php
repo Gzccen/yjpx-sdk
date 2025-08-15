@@ -3,6 +3,7 @@
 namespace Gzcots\Yjpx\Service;
 
 use Gzcots\Yjpx\Config\BaseConfig;
+use Gzcots\Yjpx\Exception\BadRequestException;
 use Psr\SimpleCache\CacheInterface;
 
 use function Gzcots\Yjpx\generateSM3;
@@ -37,7 +38,7 @@ class TokenService{
         ]);
 
         if(!isset($tokenResponse['success']) || !$tokenResponse['success']) {
-            throw new \Exception('获取Token失败');
+            throw new BadRequestException('获取Token失败');
         }
 
         $token = $tokenResponse['data']['accessToken'];
