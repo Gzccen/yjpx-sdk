@@ -4,6 +4,7 @@ namespace Gzcots\Yjpx\Service;
 
 use GuzzleHttp\Client;
 use Gzcots\Yjpx\Config\BaseConfig;
+use Gzcots\Yjpx\Exception\BadRequestException;
 
 class HttpClient {
     private Client $httpClient;
@@ -23,7 +24,8 @@ class HttpClient {
             'headers' => $headers,
             'query' => $query,
         ]);
-        return $response->getBody()->getContents();
+        $content = $response->getBody()->getContents();
+        return $this->handleResponse($content);
     }
 
     /**
@@ -34,7 +36,16 @@ class HttpClient {
             'headers' => $headers,
             'json' => $params,
         ]);
-        return $response->getBody()->getContents();
+        $content = $response->getBody()->getContents();
+        return $this->handleResponse($content);
+    }
+
+    function handleResponse($response){
+        $responseData = json_decode($response, true);
+        if(!isset($responseData['success']) || !$responseData['success']){
+            throw new BadRequestException($responseData['message'] ?? '请求失败');
+        }
+        return $responseData['data'] ?? [];
     }
 
     /**

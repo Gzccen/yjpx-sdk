@@ -40,12 +40,10 @@ class TokenService{
             'partner-id' => $this->baseConfig->partnerId,
         ]);
 
-        if(!isset($tokenResponse['success']) || !$tokenResponse['success']) {
-            throw new BadRequestException('获取Token失败');
-        }
-
-        $token = $tokenResponse['data']['accessToken'];
-        $timeOut = $tokenResponse['data']['expiresIn'];
+        $token = $tokenResponse['accessToken'];
+        $timeOut = $tokenResponse['expiresIn'];
+        // 预留1分钟
+        $timeOut -= 60;
 
         $this->cache->set($this->baseConfig->ssoTokenKey, $token, $timeOut);
         return $token;
