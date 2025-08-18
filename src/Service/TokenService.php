@@ -2,21 +2,12 @@
 
 namespace Gzcots\Yjpx\Service;
 
-use Gzcots\Yjpx\Config\BaseConfig;
-use Gzcots\Yjpx\Exception\BadRequestException;
-use Psr\SimpleCache\CacheInterface;
-
+use Gzcots\Yjpx\Trait\BaseSerivce;
 use function Gzcots\Yjpx\generateSM3;
 
 class TokenService{
 
-    private CacheInterface $cache;
-    private BaseConfig $baseConfig;
-
-    public function __construct(CacheInterface $cache, BaseConfig $baseConfig){
-        $this->cache = $cache;
-        $this->baseConfig = $baseConfig;
-    }
+    use BaseSerivce;
 
     /**
      * 调用《授权->获取token-V2》接口获取token
@@ -48,7 +39,4 @@ class TokenService{
         $this->cache->set($this->baseConfig->ssoTokenKey, $token, $timeOut);
         return $token;
     }
-
-
-
 }

@@ -2,20 +2,14 @@
 
 namespace Gzcots\Yjpx\Service;
 
-use Gzcots\Yjpx\Config\BaseConfig;
-use Psr\SimpleCache\CacheInterface;
+use Gzcots\Yjpx\Trait\BaseSerivce;
 
 class TrainPlatformOrg{
-    private CacheInterface $cache;
-    private BaseConfig $baseConfig;
-
-    public function __construct(CacheInterface $cache, BaseConfig $baseConfig){
-        $this->cache = $cache;
-        $this->baseConfig = $baseConfig;
-    }
-
+    use BaseSerivce;
     /**
      * 备案效验
+     * 机构在多个地市开展培训业务时会在每个地市进行备案，每个地市都有唯一的机构ID，接口会返回行政区域编码及对应的机构唯一ID集合。
+     * 业务数据发生在哪个地市就用对应的机构唯一ID
      */
     public function verify($params = []){
         $headers = $this->baseConfig->getHeaders();

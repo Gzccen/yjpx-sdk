@@ -5,6 +5,7 @@ namespace Gzcots\Yjpx\Service;
 use GuzzleHttp\Client;
 use Gzcots\Yjpx\Config\BaseConfig;
 use Gzcots\Yjpx\Exception\BadRequestException;
+use function Gzcots\Yjpx\handleMultipart;
 
 class HttpClient {
     private Client $httpClient;
@@ -35,6 +36,18 @@ class HttpClient {
         $response = $this->httpClient->post($url, [
             'headers' => $headers,
             'json' => $params,
+        ]);
+        $content = $response->getBody()->getContents();
+        return $this->handleResponse($content);
+    }
+
+    /**
+     * 发送文件上传请求
+     */
+    public function upload($url, $headers = [], $params = []){
+        $response = $this->httpClient->post($url, [
+            'headers' => $headers,
+            'multipart' => handleMultipart($params),
         ]);
         $content = $response->getBody()->getContents();
         return $this->handleResponse($content);
