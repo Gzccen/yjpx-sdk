@@ -33,8 +33,8 @@ class TokenService{
 
         $token = $tokenResponse['accessToken'];
         $timeOut = $tokenResponse['expiresIn'];
-        // 预留1分钟
-        $timeOut -= 60;
+        // 暂时设置为3000秒
+        $timeOut = 3000;
 
         $this->cache->set($this->baseConfig->ssoTokenKey, $token, $timeOut);
         return $token;
