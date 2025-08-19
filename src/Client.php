@@ -9,6 +9,7 @@ use Gzcots\Yjpx\Service\Other;
 use Gzcots\Yjpx\Service\Student;
 use Gzcots\Yjpx\Service\TokenService;
 use Gzcots\Yjpx\Service\TrainPlatformOrg;
+use Psr\Log\LoggerInterface;
 use Psr\SimpleCache\CacheInterface;
 
 class Client{
@@ -16,10 +17,13 @@ class Client{
     const DEV_BASE_URI = 'https://yss-gd.i-aq.cn';
     private CacheInterface $cache;
     private BaseConfig $baseConfig;
+    private LoggerInterface $logger;
 
     public function __construct($config) {
         $this->baseConfig = new BaseConfig($config['partnerId'], $config['projectCode'], $config['secretKey']);
         $this->cache = $config['cache'];
+        $this->logger = $config['logger'];
+        $this->baseConfig->logger = $this->logger;
         // 初始化tokenService
         $this->baseConfig->tokenService = new TokenService($this->cache, $this->baseConfig);
         // 判断环境

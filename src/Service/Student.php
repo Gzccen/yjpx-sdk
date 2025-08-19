@@ -4,6 +4,8 @@ namespace Gzcots\Yjpx\Service;
 
 use Gzcots\Yjpx\Trait\BaseSerivce;
 
+use function Gzcots\Yjpx\filterByKeys;
+
 // 学员档案
 class Student{
 
@@ -15,7 +17,11 @@ class Student{
     public function saveStudent($params = []){
         $httpClient = new HttpClient($this->baseConfig);
         $headers = $this->baseConfig->getHeaders();
-        $response = $httpClient->post('/pxjgDi/person/personInfo/saveStudent', $headers, $params);
+        $query = [];
+        $json = filterByKeys($params, [
+            'personId', 'pxptSrcId', 'name', 'certType', 'certNo', 'sex', 'phoneNumber', 'education', 'email', 'startWorkDate', 'homeAddress', 'jobTitle', 'inductionTime', 'entName', 'entCertNo', 'dataMap'
+        ]);
+        $response = $httpClient->post('/pxjgDi/person/personInfo/saveStudent', $headers, $json, $query);
         return $response;
     }
 
@@ -26,8 +32,10 @@ class Student{
      */
     public function studentStudyRecordSyncDataBatchSync($params = []){
         $httpClient = new HttpClient($this->baseConfig);
+        $query = [];
+        $json = filterByKeys($params, ['recordList']);
         $headers = $this->baseConfig->getHeaders();
-        $response = $httpClient->post('/pxjgDi/student/studentStudyRecordSyncData/v2/batchSync', $headers, $params);
+        $response = $httpClient->post('/pxjgDi/student/studentStudyRecordSyncData/v2/batchSync', $headers, $json, $query);
         return $response;
     }
 
@@ -39,7 +47,9 @@ class Student{
     public function studentPeriodRecordSaveData($params = []){
         $httpClient = new HttpClient($this->baseConfig);
         $headers = $this->baseConfig->getHeaders();
-        $response = $httpClient->post('/pxjgDi/student/studentPeriodRecord/v2/saveData', $headers, $params);
+        $query = [];
+        $json = filterByKeys($params, ['pxptSrcId', 'personId', 'orgUid', 'categoryCode', 'startDate', 'endDate', 'validTime', 'ipAddress', 'recordIds']);
+        $response = $httpClient->post('/pxjgDi/student/studentPeriodRecord/v2/saveData', $headers, $json, $query);
         return $response;
     }
 
@@ -53,7 +63,9 @@ class Student{
     public function studentStudyRecordSyncDataSyncResult($params = []){
         $httpClient = new HttpClient($this->baseConfig);
         $headers = $this->baseConfig->getHeaders();
-        $response = $httpClient->post('/pxjgDi/student/studentStudyRecordSyncData/syncResult', $headers, $params);
+        $query = filterByKeys($params, ['ssrsdId', 'syncTime', 'startTime', 'endTime', 'handleResult', 'pageNo', 'pageSize']);
+        $json = [];
+        $response = $httpClient->post('/pxjgDi/student/studentStudyRecordSyncData/syncResult', $headers, $json, $query);
         return $response;
     }
 
@@ -64,7 +76,9 @@ class Student{
     public function studentStudyPictureSaveData($params = []){
         $httpClient = new HttpClient($this->baseConfig);
         $headers = $this->baseConfig->getHeaders();
-        $response = $httpClient->post('/pxjgDi/student/studentStudyPicture/saveData', $headers, $params);
+        $query = [];
+        $json = filterByKeys($params, ['recordId', 'studentStudyPictureList']);
+        $response = $httpClient->post('/pxjgDi/student/studentStudyPicture/saveData', $headers, $json, $query);
         return $response;
     }
 
@@ -74,7 +88,9 @@ class Student{
     public function personCertSave($params = []){
         $httpClient = new HttpClient($this->baseConfig);
         $headers = $this->baseConfig->getHeaders();
-        $response = $httpClient->post('/pxjgDi/person/personCert/save', $headers, $params);
+        $query = [];
+        $json = filterByKeys($params, ['pxptSrcId', 'personId', 'orgUid', 'subjectCode', 'startDate', 'endDate', 'dataMap']);
+        $response = $httpClient->post('/pxjgDi/person/personCert/save', $headers, $json, $query);
         return $response;
     }
 
@@ -84,7 +100,9 @@ class Student{
     public function studentPeriodRecordNullify($params = []){
         $httpClient = new HttpClient($this->baseConfig);
         $headers = $this->baseConfig->getHeaders();
-        $response = $httpClient->post('/pxjgDi/student/studentPeriodRecord/nullify', $headers, $params);
+        $query = filterByKeys($params, ['pxptSrcIds']);
+        $json = [];
+        $response = $httpClient->post('/pxjgDi/student/studentPeriodRecord/nullify', $headers, $json, $query);
         return $response;
     }
 
@@ -94,7 +112,9 @@ class Student{
     public function studentStudyRecordNullify($params = []){
         $httpClient = new HttpClient($this->baseConfig);
         $headers = $this->baseConfig->getHeaders();
-        $response = $httpClient->post('/pxjgDi/student/studentStudyRecord/nullify', $headers, $params);
+        $query = filterByKeys($params, ['pxptSrcIds']);
+        $json = [];
+        $response = $httpClient->post('/pxjgDi/student/studentStudyRecord/nullify', $headers, $json, $query);
         return $response;
     }
 }

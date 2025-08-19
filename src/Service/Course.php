@@ -4,6 +4,8 @@ namespace Gzcots\Yjpx\Service;
 
 use Gzcots\Yjpx\Trait\BaseSerivce;
 
+use function Gzcots\Yjpx\filterByKeys;
+
 // 课程管理
 class Course{
     
@@ -15,7 +17,9 @@ class Course{
     public function courseSubjectListData($params = []){
         $httpClient = new HttpClient($this->baseConfig);
         $headers = $this->baseConfig->getHeaders();
-        $response = $httpClient->post('/pxjgDi/course/courseSubject/listData1', $headers, $params);
+        $query = filterByKeys($params, ['pageNo', 'pageSize', 'createDate']);
+        $json = [];
+        $response = $httpClient->post('/pxjgDi/course/courseSubject/listData1', $headers, $json, $query);
         return $response;
     }
 
@@ -25,7 +29,9 @@ class Course{
     public function courseSubjectHourListData($params = []){
         $httpClient = new HttpClient($this->baseConfig);
         $headers = $this->baseConfig->getHeaders();
-        $response = $httpClient->post('/pxjgDi/course/courseSubjectHour/listData1', $headers, $params);
+        $query = filterByKeys($params, ['pageNo', 'pageSize', 'updateDateGteStr']);
+        $json = [];
+        $response = $httpClient->post('/pxjgDi/course/courseSubjectHour/listData1', $headers, $json, $query);
         return $response;
     }
 
@@ -35,7 +41,9 @@ class Course{
     public function courseCategoryListData($params = []){
         $httpClient = new HttpClient($this->baseConfig);
         $headers = $this->baseConfig->getHeaders();
-        $response = $httpClient->post('/pxjgDi/course/courseCategory/listData1', $headers, $params);
+        $query = filterByKeys($params, ['pageNo', 'pageSize', 'updateDateGteStr']);
+        $json = [];
+        $response = $httpClient->post('/pxjgDi/course/courseCategory/listData1', $headers, $json, $query);
         return $response;
     }
 
@@ -45,7 +53,11 @@ class Course{
     public function courseDetailSave($params = []){
         $httpClient = new HttpClient($this->baseConfig);
         $headers = $this->baseConfig->getHeaders();
-        $response = $httpClient->post('/pxjgDi/course/courseDetail/save', $headers, $params);
+        $query = [];
+        $json = filterByKeys($params, [
+            'detailId', 'pxptSrcId', 'categoryCode', 'detailName', 'detailNum', 'detailHour', 'detailUrl', 'detailIntro'
+        ]);
+        $response = $httpClient->post('/pxjgDi/course/courseDetail/save', $headers, $json, $query);
         return $response;
     }
 
@@ -55,7 +67,9 @@ class Course{
     public function courseDetailOrgSave($params = []){
         $httpClient = new HttpClient($this->baseConfig);
         $headers = $this->baseConfig->getHeaders();
-        $response = $httpClient->post('/pxjgDi/course/courseDetailOrg/save', $headers, $params);
+        $query = filterByKeys($params, ['detailId', 'orgUid']);
+        $json = [];
+        $response = $httpClient->post('/pxjgDi/course/courseDetailOrg/save', $headers, $json, $query);
         return $response;
     }
 }

@@ -3,6 +3,9 @@
 namespace Gzcots\Yjpx\Service;
 
 use Gzcots\Yjpx\Trait\BaseSerivce;
+
+use function Gzcots\Yjpx\filterByKeys;
+
 // 消息通知
 class Msg{
 
@@ -15,7 +18,9 @@ class Msg{
     public function courseSuperviseListData($params = []){
         $httpClient = new HttpClient($this->baseConfig);
         $headers = $this->baseConfig->getHeaders();
-        $response = $httpClient->post('/pxjgDi/course/courseSupervise/listData1', $headers, $params);
+        $query = filterByKeys($params, ['createDateGteStr', 'pageNo', 'pageSize']);
+        $json = [];
+        $response = $httpClient->post('/pxjgDi/course/courseSupervise/listData1', $headers, $json, $query);
         return $response;
     }
 
@@ -26,7 +31,9 @@ class Msg{
     public function courseSuperviseHandleStatus($params = []){
         $httpClient = new HttpClient($this->baseConfig);
         $headers = $this->baseConfig->getHeaders();
-        $response = $httpClient->post('/pxjgDi/course/courseSupervise/handleStatus', $headers, $params);
+        $query = filterByKeys($params, ['detailId', 'handleStatus']);
+        $json = [];
+        $response = $httpClient->post('/pxjgDi/course/courseSupervise/handleStatus', $headers, $json, $query);
         return $response;
     }
 }

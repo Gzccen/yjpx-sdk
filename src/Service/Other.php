@@ -4,6 +4,8 @@ namespace Gzcots\Yjpx\Service;
 
 use Gzcots\Yjpx\Trait\BaseSerivce;
 
+use function Gzcots\Yjpx\filterByKeys;
+
 // 其他
 class Other{
     
@@ -25,7 +27,9 @@ class Other{
     public function sysAreaListData($params = []){
         $httpClient = new HttpClient($this->baseConfig);
         $headers = $this->baseConfig->getHeaders();
-        $response = $httpClient->post('/pxjgDi/sys/utils/sysArea/listData', $headers, $params);
+        $query = filterByKeys($params, ['pageNo', 'pageSize', 'updateDateGteStr']);
+        $json = [];
+        $response = $httpClient->post('/pxjgDi/sys/utils/sysArea/listData', $headers, $json, $query);
         return $response;
     }
 
@@ -35,9 +39,9 @@ class Other{
     public function dictDataListData($params = []){
         $httpClient = new HttpClient($this->baseConfig);
         $headers = $this->baseConfig->getHeaders();
-        $response = $httpClient->post('/pxjgDi/sys/utils/dictData/listData', $headers, $params);
+        $query = filterByKeys($params, ['pageNo', 'pageSize', 'dictType', 'updateDateGteStr']);
+        $json = [];
+        $response = $httpClient->post('/pxjgDi/sys/utils/dictData/listData', $headers, $json, $query);
         return $response;
     }
-
-
 }

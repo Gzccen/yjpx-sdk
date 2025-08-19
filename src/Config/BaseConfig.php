@@ -3,6 +3,7 @@
 namespace Gzcots\Yjpx\Config;
 
 use Gzcots\Yjpx\Service\TokenService;
+use Psr\Log\LoggerInterface;
 
 /**
  * 基础配置
@@ -13,6 +14,7 @@ use Gzcots\Yjpx\Service\TokenService;
  * @property string $ssoTokenKey SSO令牌缓存键
  * @property string $secretKey privateKey密钥
  * @property TokenService $tokenService tokenService
+ * @property LoggerInterface $logger logger
  */
 class BaseConfig{
     protected string $partnerId;
@@ -22,6 +24,7 @@ class BaseConfig{
     protected int $timeout = 30;
     protected string $ssoTokenKey = 'yjpx:ssoToken';
     protected TokenService $tokenService;
+    protected LoggerInterface $logger;
     public function __construct($partnerId, $projectCode, $secretKey){
         $this->partnerId = $partnerId;
         $this->projectCode = $projectCode;

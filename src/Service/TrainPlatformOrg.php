@@ -3,6 +3,7 @@
 namespace Gzcots\Yjpx\Service;
 
 use Gzcots\Yjpx\Trait\BaseSerivce;
+use function Gzcots\Yjpx\filterByKeys;
 
 class TrainPlatformOrg{
     use BaseSerivce;
@@ -14,7 +15,9 @@ class TrainPlatformOrg{
     public function verify($params = []){
         $headers = $this->baseConfig->getHeaders();
         $httpClient = new HttpClient($this->baseConfig);
-        $data = $httpClient->post('/pxjgDi/org/orgBase/verify', $headers, $params);
+        $query = filterByKeys($params, ['type', 'idType', 'idNo']);
+        $json = [];
+        $data = $httpClient->post('/pxjgDi/org/orgBase/verify', $headers, $json, $query);
         return $data;
     }
 
@@ -24,11 +27,9 @@ class TrainPlatformOrg{
     public function save($params = []){
         $headers = $this->baseConfig->getHeaders();
         $httpClient = new HttpClient($this->baseConfig);
-        $data = $httpClient->post('/pxjgDi/train/trainPlatformOrg/save', $headers, $params);
+        $query = filterByKeys($params, ['orgUid', 'status', 'createDate']);
+        $json = [];
+        $data = $httpClient->post('/pxjgDi/train/trainPlatformOrg/save', $headers, $json, $query);
         return $data;
     }
-
-
-
-
 }

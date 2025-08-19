@@ -3,6 +3,7 @@
 namespace Gzcots\Yjpx\Trait;
 
 use Gzcots\Yjpx\Config\BaseConfig;
+use Psr\Log\LoggerInterface;
 use Psr\SimpleCache\CacheInterface;
 
 trait BaseSerivce{
