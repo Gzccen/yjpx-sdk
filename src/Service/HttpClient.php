@@ -43,11 +43,16 @@ class HttpClient {
      */
     public function post($url, $headers = [], $params = [], $query = []){
         $this->logger->info('post request:', ['url' => $url, 'headers' => $headers, 'params' => $params, 'query' => $query]);
-        $response = $this->httpClient->post($url, [
+        $options = [
             'headers' => $headers,
-            'json' => $params,
-            'query' => $query,
-        ]);
+        ];
+        if(!empty($params)){
+            $options['json'] = $params;
+        }
+        if(!empty($query)){
+            $options['query'] = $query;
+        }
+        $response = $this->httpClient->post($url, $options);
         $content = $response->getBody()->getContents();
         return $this->handleResponse($content);
     }
