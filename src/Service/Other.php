@@ -17,7 +17,7 @@ class Other{
     public function fileUpload($params = []){
         $httpClient = new HttpClient($this->baseConfig);
         $headers = $this->baseConfig->getHeaders();
-        $response = $httpClient->upload('/pxjgDi/sys/utils/file/upload', $headers, $params);
+        $response = $httpClient->upload('/pxjgDi/sys/utils/fileUpload', $headers, $params);
         return $response;
     }
 
