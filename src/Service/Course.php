@@ -72,4 +72,16 @@ class Course{
         $response = $httpClient->post('/pxjgDi/course/courseDetailOrg/save', $headers, $json, $query);
         return $response;
     }
+
+    /**
+     * 评价数据同步
+     */
+    public function courseEvaluateSave($params = []){
+        $httpClient = new HttpClient($this->baseConfig);
+        $headers = $this->baseConfig->getHeaders();
+        $query = [];
+        $json = filterByKeys($params, ['pxptSrcId', 'personId', 'detailId', 'orgUid', 'score', 'comment', 'createDate']);
+        $response = $httpClient->post('/pxjgDi/course/courseEvaluate/save', $headers, $json, $query);
+        return $response;
+    }
 }

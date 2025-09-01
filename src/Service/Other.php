@@ -44,4 +44,16 @@ class Other{
         $response = $httpClient->post('/pxjgDi/sys/utils/dictData/listData', $headers, $json, $query);
         return $response;
     }
+
+    /**
+     * 培训平台信息修改
+     */
+    public function trainPlatformSave($params = []){
+        $httpClient = new HttpClient($this->baseConfig);
+        $headers = $this->baseConfig->getHeaders();
+        $query = filterByKeys($params, ['platformName', 'platformShortName', 'platformUrl', 'trainPlatformThumbnail']);
+        $json = [];
+        $response = $httpClient->post('/pxjgDi/train/trainPlatform/save', $headers, $json, $query);
+        return $response;
+    }
 }
