@@ -49,7 +49,7 @@ class Student{
         $headers = $this->baseConfig->getHeaders();
         $query = [];
         $json = filterByKeys($params, ['pxptSrcId', 'personId', 'orgUid', 'categoryCode', 'startDate', 'endDate', 'validTime', 'ipAddress', 'recordIds']);
-        $response = $httpClient->post('/pxjgDi/student/studentPeriodRecord/v2/saveData', $headers, $json, $query);
+        $response = $httpClient->post('/pxjgDi/student/studentPeriodRecordOnline/v2/saveData', $headers, $json, $query);
         return $response;
     }
 
@@ -90,7 +90,7 @@ class Student{
         $headers = $this->baseConfig->getHeaders();
         $query = [];
         $json = filterByKeys($params, ['pxptSrcId', 'personId', 'orgUid', 'subjectCode', 'startDate', 'endDate', 'dataMap']);
-        $response = $httpClient->post('/pxjgDi/person/personCert/save', $headers, $json, $query);
+        $response = $httpClient->post('/pxjgDi/student/studentStudyProve/saveData', $headers, $json, $query);
         return $response;
     }
 
