@@ -19,7 +19,7 @@ class Student{
         $headers = $this->baseConfig->getHeaders();
         $query = [];
         $json = filterByKeys($params, [
-            'personId', 'pxptSrcId', 'name', 'certType', 'certNo', 'sex', 'phoneNumber', 'education', 'email', 'startWorkDate', 'homeAddress', 'jobTitle', 'inductionTime', 'entName', 'entCertNo', 'dataMap'
+            'personId', 'name', 'certType', 'certNo', 'sex', 'age', 'birthDate', 'phoneNumber'
         ]);
         $response = $httpClient->post('/pxjgDi/person/personInfo/saveStudent', $headers, $json, $query);
         return $response;
@@ -114,7 +114,7 @@ class Student{
         $headers = $this->baseConfig->getHeaders();
         $query = filterByKeys($params, ['pxptSrcIds']);
         $json = [];
-        $response = $httpClient->post('/pxjgDi/student/studentStudyRecord/nullify', $headers, $json, $query);
+        $response = $httpClient->post('/pxjgDi/student/studentPeriodRecordOnline/nullify', $headers, $json, $query);
         return $response;
     }
 }
