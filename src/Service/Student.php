@@ -89,7 +89,7 @@ class Student{
         $httpClient = new HttpClient($this->baseConfig);
         $headers = $this->baseConfig->getHeaders();
         $query = [];
-        $json = filterByKeys($params, ['pxptSrcId', 'personId', 'orgUid', 'subjectCode', 'startDate', 'endDate', 'dataMap']);
+        $json = filterByKeys($params, ['srcId', 'personId', 'orgUid', 'subjectCode', 'startDate', 'endDate', 'dataMap']);
         $response = $httpClient->post('/pxjgDi/student/studentStudyProve/saveData', $headers, $json, $query);
         return $response;
     }
